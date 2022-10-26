@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#define MULTIPLY 2
+
 typedef int elem_data_t;
 
 typedef struct {
@@ -16,6 +18,7 @@ typedef struct {
     int head, tail, free;
     arr_list *data;
     size_t size, capacity;
+    bool is_sorted;
 } list;
 
 #endif 
