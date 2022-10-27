@@ -1,5 +1,5 @@
-#include "list.hpp"
-#include "list_debug.hpp"
+#include "include/list.hpp"
+#include "include/list_debug.hpp"
 
 
 int main() {
@@ -10,7 +10,7 @@ int main() {
 
     for (int i = 1; i < 5; i++) {
         list_insert(&lst, i, i*10);
-    dump(&lst);
+        dump(&lst);
     }
     // printf("%d\n", list_erase(&lst, 2));
 
@@ -20,15 +20,13 @@ int main() {
     //     printf("%d\n", list_erase(&lst, ));
 
     // // } 
-    // printf("%d\n", list_erase(&lst, lst.tail - 1));
+    // printf("%d\n", list_erase(&lst, 2));
     // dump(&lst);
     // printf("%d\n", list_erase(&lst, lst.tail - 1));
     // dump(&lst);
     // printf("%d\n", list_erase(&lst, lst.tail - 1));
     // dump(&lst);
 
-    list_insert(&lst, 4, 45);
-    dump(&lst);
     list_insert(&lst, 3, 35);
     dump(&lst);
     list_insert(&lst, lst.tail, 50);

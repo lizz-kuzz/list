@@ -1,4 +1,4 @@
-#include "list.hpp"
+#include "include/list.hpp"
 
 FILE *log_file;
 
@@ -199,7 +199,7 @@ elem_data_t list_erase(list *lst, int ind) {
         lst->data[ind].prev = lst->free - 1;
     }
     lst->size--;
-    
+
     for (unsigned i = 1; i < lst->capacity; i++) {
         if (lst->data[i].next == -1) {
             lst->free = i;

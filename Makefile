@@ -6,6 +6,6 @@ FLAGS = -g -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-e
 СС = g++
 
 all:
-	@$(СС) $(FLAGS) main.cpp list.cpp list_debug.cpp -DRELEASE  -o do.exe
+	@$(СС) $(FLAGS) main.cpp list.cpp list_debug.cpp -o do.exe
 
 
