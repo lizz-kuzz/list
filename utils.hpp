@@ -7,7 +7,9 @@
 
 #define MULTIPLY 2
 
+
 typedef int elem_data_t;
+
 
 typedef struct {
     elem_data_t elem;
