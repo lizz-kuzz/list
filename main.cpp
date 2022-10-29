@@ -20,15 +20,19 @@ int main() {
     //     printf("%d\n", list_erase(&lst, ));
 
     // // } 
-    // printf("%d\n", list_erase(&lst, 2));
-    // dump(&lst);
-    // printf("%d\n", list_erase(&lst, lst.tail - 1));
-    // dump(&lst);
-    // printf("%d\n", list_erase(&lst, lst.tail - 1));
-    // dump(&lst);
+    printf("%d\n", list_erase(&lst, lst.size));
+    dump(&lst);
+    printf("%d\n", list_erase(&lst, lst.size));
+    dump(&lst);
+    printf("%d\n", list_erase(&lst, lst.size));
+    dump(&lst);
+    printf("%d\n", list_erase(&lst, 3));
+    dump(&lst);
+    printf("%d\n", list_erase(&lst, 5));
+    dump(&lst);
 
-    list_insert(&lst, 3, 35);
-    // dump(&lst);
+    list_insert(&lst, 2, 35);
+    dump(&lst);
     // list_insert(&lst, lst.tail, 50);
     // dump(&lst);
     list_insert(&lst, 2, 25);
@@ -38,7 +42,7 @@ int main() {
 
     list_sort(&lst);
     dump(&lst);
-    // list_insert(&lst, 3, 33);
+    // // list_insert(&lst, 3, 33);
 
 
     list_dtor(&lst);

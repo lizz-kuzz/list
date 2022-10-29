@@ -51,7 +51,6 @@ void list_sort(list *lst) {
     assert(lst != nullptr && "null pointer");
 
     arr_list *data_sort = (arr_list *) calloc(lst->capacity, sizeof(arr_list));
-    printf("hgfgf\n");
     int next = lst->data[lst->head].next;
     unsigned i = 1;
     data_sort[0].elem = 0;
@@ -63,6 +62,8 @@ void list_sort(list *lst) {
         data_sort[i].next = i + 1;
         data_sort[i].prev = i - 1;
     }
+
+    lst->free = i;
 
     data_sort[0].prev = i - 1;
     data_sort[i - 1].next = 0;
@@ -78,7 +79,6 @@ void list_sort(list *lst) {
 
     lst->data = data_sort;
     lst->is_sorted = true;
-    dump(lst);
 }
 
 void list_realloc(list *lst) {
@@ -102,7 +102,7 @@ void list_realloc(list *lst) {
         
         for (; i < lst->capacity; i++) {
             data_copy[i].elem = 0;
-            data_copy[i].next = i - 1;
+            data_copy[i].next = i + 1;
             data_copy[i].prev = -1;
         }
 
@@ -110,7 +110,6 @@ void list_realloc(list *lst) {
         free(lst->data);
         lst->data = data_copy;
     }
-    dump(lst);
 }
 
 int list_insert(list *lst, int ind, elem_data_t value) {
@@ -123,11 +122,10 @@ int list_insert(list *lst, int ind, elem_data_t value) {
     lst->data[lst->free].elem = value;
     lst->data[lst->free].next = lst->data[ind].next;
     lst->data[lst->free].prev = ind;
+    lst->data[lst->data[ind].next].prev = lst->free;
     lst->data[ind].next = lst->free; 
-    lst->data[lst->head].prev = lst->free;
 
     lst->is_sorted = false;
-    
     lst->size++;
     int count = 0;
 
@@ -141,7 +139,6 @@ int list_insert(list *lst, int ind, elem_data_t value) {
     
     if (count == 0) {
         list_realloc(lst);
-        lst->free++;
     }
 
     return 0;
@@ -160,12 +157,12 @@ elem_data_t list_erase(list *lst, int ind) {
     lst->data[prev].next = next;
 
     lst->data[ind].elem = 0;
-    lst->data[ind].next = -1;
-    lst->data[ind].prev = lst->free - 1;
+    lst->data[ind].next = lst->free;
+    lst->data[ind].prev = -1;
     lst->size--;
 
     for (unsigned i = 1; i < lst->capacity; i++) {
-        if (lst->data[i].next == -1) {
+        if (lst->data[i].prev == -1) {
             lst->free = i;
             break;
         } else lst->free++;
