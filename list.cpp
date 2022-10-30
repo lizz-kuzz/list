@@ -170,3 +170,16 @@ elem_data_t list_erase(list *lst, int ind) {
 
     return value;
 }
+// // доделать/переделать 
+// int list_get_item_by_logical_ind(list *lst, int ind) {
+//     assert(lst != nullptr && "null pointer");
+//     int count = 0;
+//     for (unsigned i = 0; i < lst->capacity; i++) {
+//         int next = lst->data[i].next;
+//         count++;
+//         if (count == ind) {
+//             break;
+//         }
+//     }
+//     return i;
+// }

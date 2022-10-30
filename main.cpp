@@ -16,22 +16,20 @@ int main() {
 
     // dump(&lst);
 
-    // for (int i = 0; i < 4; i++) {
-    //     printf("%d\n", list_erase(&lst, ));
+   
 
-    // // } 
-    printf("%d\n", list_erase(&lst, lst.size));
-    dump(&lst);
-    printf("%d\n", list_erase(&lst, lst.size));
-    dump(&lst);
-    printf("%d\n", list_erase(&lst, lst.size));
-    dump(&lst);
-    printf("%d\n", list_erase(&lst, 3));
-    dump(&lst);
-    printf("%d\n", list_erase(&lst, 5));
-    dump(&lst);
+    // printf("%d\n", list_erase(&lst, lst.size));
+    // dump(&lst);
+    // printf("%d\n", list_erase(&lst, lst.size));
+    // dump(&lst);
+    // printf("%d\n", list_erase(&lst, lst.size));
+    // dump(&lst);
+    // printf("%d\n", list_erase(&lst, 3));
+    // dump(&lst);
+    // printf("%d\n", list_erase(&lst, 5));
+    // dump(&lst);
 
-    list_insert(&lst, 2, 35);
+    list_insert(&lst, 3, 35);
     dump(&lst);
     // list_insert(&lst, lst.tail, 50);
     // dump(&lst);
@@ -39,6 +37,8 @@ int main() {
     dump(&lst);
     list_insert(&lst, 1, 15);
     dump(&lst);
+    // printf("%d\n", list_get_item_by_logical_ind(&lst, 6));
+
 
     list_sort(&lst);
     dump(&lst);
