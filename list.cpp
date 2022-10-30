@@ -145,6 +145,7 @@ int list_insert(list *lst, int ind, elem_data_t value) {
 }
 
 elem_data_t list_erase(list *lst, int ind) {
+
     assert(lst != nullptr && "null pointer");
     elem_data_t value = 0;
 
@@ -170,6 +171,29 @@ elem_data_t list_erase(list *lst, int ind) {
 
     return value;
 }
+
+int list_push_back(list *lst, elem_data_t value) {
+    assert(lst != nullptr && "null pointer");
+    list_insert(lst, lst->data[0].prev, value);
+    return 0;
+}
+
+int list_push_front(list *lst, elem_data_t value) {
+    assert(lst != nullptr && "null pointer");
+    list_insert(lst, lst->head, value);
+    return 0;
+}
+
+elem_data_t list_pop_back(list *lst) {
+    assert(lst != nullptr && "null pointer");
+    return list_erase(lst, lst->data[0].prev);
+}
+
+elem_data_t list_pop_front(list *lst) {
+    assert(lst != nullptr && "null pointer");
+    return list_erase(lst, lst->data[0].next);
+}
+
 // // доделать/переделать 
 // int list_get_item_by_logical_ind(list *lst, int ind) {
 //     assert(lst != nullptr && "null pointer");

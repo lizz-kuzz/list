@@ -34,7 +34,7 @@ void dump(list *lst) {
     fprintf(log_file, "\n\n");
     dump_grapviz(lst);
 
-    fprintf(log_file, "\n<img src=\"../res/output%d.png\" width=\"1200\" height=\"250\">\n\n", number_png - 1);
+    fprintf(log_file, "\n<img src=\"../res/output%d.png\"  height=\"250\">\n\n", number_png - 1);
 }
 
 void dump_grapviz(list *lst) {
@@ -63,7 +63,7 @@ void dump_grapviz(list *lst) {
     }
     fprintf(graph, "\n");
 
-    for (unsigned i = 1; i < lst->capacity; i++) {
+    for (unsigned i = 0; i < lst->capacity; i++) {
         fprintf(graph, "\tstruct%d -> struct%d [color=\"blue\", constraint=fasle]\n", i, lst->data[i].next);
     }
     fprintf(graph, "\n");
