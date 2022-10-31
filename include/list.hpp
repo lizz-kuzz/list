@@ -19,6 +19,5 @@ int         list_push_front  (list *lst, elem_data_t value);
 elem_data_t list_pop_back    (list *lst);
 elem_data_t list_pop_front   (list *lst);
 
-// int list_get_item_by_logical_ind(list *lst, int ind);
 
 #endif
