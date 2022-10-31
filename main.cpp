@@ -7,14 +7,15 @@ int main() {
 
     list_ctor(&lst, 10);
     dump(&lst);
+
     for (int i = 0; i < 15; i++) {
-        list_push_back(&lst, (i+1)*10);
-        dump(&lst);
-    }
-    for (int i = 15; i < 20; i++) {
         list_push_front(&lst, (i+1)*10);
         dump(&lst);
     }
+    // for (int i = 15; i < 20; i++) {
+    //     list_push_front(&lst, (i+1)*10);
+    //     dump(&lst);
+    // }
 
     // for (int i = 0; i < 10; i++) {
     //     list_insert(&lst, i, (i+1)*10);
@@ -28,8 +29,8 @@ int main() {
 
    
     for (int i = 0; i < 10; i++) {
-    printf("%d\n", list_pop_front(&lst));
-    dump(&lst);
+        printf("%d\n", list_pop_back(&lst));
+        dump(&lst);
     }
     // printf("%d\n", list_erase(&lst, lst.size));
     // dump(&lst);
@@ -47,12 +48,10 @@ int main() {
     // dump(&lst);
     // list_insert(&lst, 1, 15);
     // dump(&lst);
-    // printf("%d\n", list_get_item_by_logical_ind(&lst, 6));
 
 
     list_sort(&lst);
     dump(&lst);
-    // list_insert(&lst, 3, 33);
 
 
     list_dtor(&lst);

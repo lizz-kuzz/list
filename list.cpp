@@ -28,6 +28,7 @@ void list_ctor(list *lst, int capacity) {
     lst->data[lst->capacity - 1].next = 0;
 
     log_file = fopen(LOG_FILE, "w");
+    return;
 }
 
 
@@ -43,6 +44,7 @@ void list_dtor(list *lst) {
     lst->tail     = -1;
     lst->capacity = -1;
     lst->free     = -1;
+    return;
 }
 
 
@@ -51,12 +53,14 @@ void list_sort(list *lst) {
     assert(lst != nullptr && "null pointer");
 
     arr_list *data_sort = (arr_list *) calloc(lst->capacity, sizeof(arr_list));
+
     int next = lst->data[lst->head].next;
     unsigned i = 1;
+
     data_sort[0].elem = 0;
     data_sort[0].next = 1;
     
-    for (i = 1; i <= lst->size; i++) {
+    for (; i <= lst->size; i++) {
         data_sort[i].elem = lst->data[next].elem;
         next = lst->data[next].next;
         data_sort[i].next = i + 1;
@@ -73,12 +77,15 @@ void list_sort(list *lst) {
         data_sort[i].next = i + 1;
         data_sort[i].prev = -1;
     }
+
     data_sort[lst->capacity - 1].next = 0;
 
     free(lst->data);
 
     lst->data = data_sort;
     lst->is_sorted = true;
+
+    return;
 }
 
 void list_realloc(list *lst) {
@@ -90,6 +97,7 @@ void list_realloc(list *lst) {
 
     if (lst->is_sorted) {
         lst->capacity *= MULTIPLY;
+
         arr_list *data_copy = (arr_list *) calloc(lst->capacity, sizeof(arr_list));
 
         unsigned i = 0;
@@ -107,91 +115,99 @@ void list_realloc(list *lst) {
         }
 
         data_copy[lst->capacity - 1].next = 0;
+
         free(lst->data);
         lst->data = data_copy;
     }
+    return;
 }
 
-int list_insert(list *lst, int ind, elem_data_t value) {
+int pop_free(list *lst) {
+    assert(lst != nullptr && "null pointer");
+
+    if (lst->free == 0) {
+        list_realloc(lst);
+    }
+
+    int free = lst->free;
+    int new_free = lst->data[free].next;
+
+    return new_free;
+}
+
+void list_insert(list *lst, int ind, elem_data_t value) {
     assert(lst != nullptr && "null pointer");
 
     if (lst->size == lst->capacity - 1) {
         list_realloc(lst);
     }
 
-    lst->data[lst->free].elem = value;
-    lst->data[lst->free].next = lst->data[ind].next;
-    lst->data[lst->free].prev = ind;
-    lst->data[lst->data[ind].next].prev = lst->free;
-    lst->data[ind].next = lst->free; 
+    int free = lst->free;
+    lst->free = pop_free(lst);
+
+    lst->data[free].elem = value;
+    lst->data[free].next = lst->data[ind].next;
+    lst->data[free].prev = ind;
+
+    lst->data[lst->data[ind].next].prev = free;
+    lst->data[ind].next = free; 
 
     lst->is_sorted = false;
     lst->size++;
-    int count = 0;
 
-    for (unsigned i = 1; i < lst->capacity; i++) {
-        if (lst->data[i].prev == -1) {
-            lst->free = i;
-            count++;
-            break;
-        } 
-    }
-    
-    if (count == 0) {
-        list_realloc(lst);
-    }
+    return;
+}
 
-    return 0;
+void push_free(list *lst, int ind) {
+    assert(lst != nullptr && "null pointer");
+
+    lst->data[ind].prev = -1;
+    lst->data[ind].elem = 0;
+    lst->data[ind].next = lst->free;
+    lst->free = ind;
+    return;
 }
 
 elem_data_t list_erase(list *lst, int ind) {
-
     assert(lst != nullptr && "null pointer");
+
     elem_data_t value = 0;
 
-    int next, prev;
     value = lst->data[ind].elem;
-    next  = lst->data[ind].next;
-    prev  = lst->data[ind].prev;
-    lst->data[next].prev = prev;
-    lst->data[prev].next = next;
+    lst->data[lst->data[ind].next].prev = lst->data[ind].prev;
+    lst->data[lst->data[ind].prev].next = lst->data[ind].next;
 
-    lst->data[ind].elem = 0;
-    // lst->data[ind].next = lst->free;
-    lst->data[ind].next = ind + 1;
-
-    lst->data[ind].prev = -1;
     lst->size--;
-
-    for (unsigned i = 1; i < lst->capacity; i++) {
-        if (lst->data[i].prev == -1) {
-            lst->free = i;
-            break;
-        } else lst->free++;
-    }
+    push_free(lst, ind);
 
     return value;
 }
 
-int list_push_back(list *lst, elem_data_t value) {
+void list_push_back(list *lst, elem_data_t value) {
     assert(lst != nullptr && "null pointer");
+
     list_insert(lst, lst->data[0].prev, value);
-    return 0;
+
+    return;
 }
 
-int list_push_front(list *lst, elem_data_t value) {
+void list_push_front(list *lst, elem_data_t value) {
     assert(lst != nullptr && "null pointer");
+
     list_insert(lst, lst->head, value);
-    return 0;
+
+    return;
 }
 
 elem_data_t list_pop_back(list *lst) {
     assert(lst != nullptr && "null pointer");
+
     return list_erase(lst, lst->data[0].prev);
 }
 
 elem_data_t list_pop_front(list *lst) {
     assert(lst != nullptr && "null pointer");
+
     return list_erase(lst, lst->data[0].next);
 }
 
