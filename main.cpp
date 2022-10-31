@@ -11,6 +11,10 @@ int main() {
         list_push_back(&lst, (i+1)*10);
         dump(&lst);
     }
+    for (int i = 15; i < 20; i++) {
+        list_push_front(&lst, (i+1)*10);
+        dump(&lst);
+    }
 
     // for (int i = 0; i < 10; i++) {
     //     list_insert(&lst, i, (i+1)*10);
@@ -24,9 +28,8 @@ int main() {
 
    
     for (int i = 0; i < 10; i++) {
-    printf("%d\n", list_pop_back(&lst));
+    printf("%d\n", list_pop_front(&lst));
     dump(&lst);
-
     }
     // printf("%d\n", list_erase(&lst, lst.size));
     // dump(&lst);
@@ -39,8 +42,7 @@ int main() {
 
     // list_insert(&lst, 3, 35);
     // dump(&lst);
-    // // list_insert(&lst, lst.tail, 50);
-    // // dump(&lst);
+    // dump(&lst);
     // list_insert(&lst, 2, 25);
     // dump(&lst);
     // list_insert(&lst, 1, 15);
@@ -50,7 +52,7 @@ int main() {
 
     list_sort(&lst);
     dump(&lst);
-    // // list_insert(&lst, 3, 33);
+    // list_insert(&lst, 3, 33);
 
 
     list_dtor(&lst);

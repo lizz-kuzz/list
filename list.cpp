@@ -153,12 +153,13 @@ elem_data_t list_erase(list *lst, int ind) {
     value = lst->data[ind].elem;
     next  = lst->data[ind].next;
     prev  = lst->data[ind].prev;
-
     lst->data[next].prev = prev;
     lst->data[prev].next = next;
 
     lst->data[ind].elem = 0;
-    lst->data[ind].next = lst->free;
+    // lst->data[ind].next = lst->free;
+    lst->data[ind].next = ind + 1;
+
     lst->data[ind].prev = -1;
     lst->size--;
 
