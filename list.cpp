@@ -2,11 +2,16 @@
 #include "include/list_debug.hpp"
 
 FILE *log_file;
-
+void open_log_file() {
+    const char *LOG_FILE = "/mnt/c/Users/User/Desktop/programs/list/res/log.html";
+    log_file = fopen(LOG_FILE, "w");
+}
+void close_log_file() {
+    fclose(log_file);
+}
 
 void list_ctor(list *lst, int capacity) {
     assert(lst != nullptr && "null pointer");
-    const char *LOG_FILE = "/mnt/c/Users/User/Desktop/programs/list/res/log.html";
 
     lst->data = (arr_list *) calloc(capacity + 1, sizeof(arr_list));
 
@@ -27,7 +32,6 @@ void list_ctor(list *lst, int capacity) {
     lst->data[0].prev = 0;
     lst->data[lst->capacity - 1].next = 0;
 
-    log_file = fopen(LOG_FILE, "w");
     return;
 }
 
@@ -36,7 +40,6 @@ void list_dtor(list *lst) {
     assert(lst != nullptr && "null pointer");
 
     free(lst->data);
-    fclose(log_file);
 
     lst->data = nullptr;
     lst->size     = -1;

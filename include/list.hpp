@@ -19,4 +19,7 @@ void        list_push_front  (list *lst, elem_data_t value);
 elem_data_t list_pop_back    (list *lst);
 elem_data_t list_pop_front   (list *lst);
 
+void open_log_file();
+void close_log_file();
+
 #endif

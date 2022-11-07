@@ -6,6 +6,7 @@ int main() {
     list lst = {};
 
     list_ctor(&lst, 10);
+    open_log_file();
     dump(&lst);
 
     for (int i = 0; i < 15; i++) {
@@ -55,5 +56,6 @@ int main() {
 
 
     list_dtor(&lst);
+    close_log_file();
     return 0;
 }
